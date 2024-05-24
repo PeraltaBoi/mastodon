@@ -3564,7 +3564,8 @@ $ui-header-logo-wordmark-width: 99px;
   white-space: nowrap; /* Prevents line breaks in the items */
 }
 
-.button-scroll-list::-webkit-scrollbar { /* WebKit browsers */
+.button-scroll-list::-webkit-scrollbar {
+  /* WebKit browsers */
   display: none;
 }
 

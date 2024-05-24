@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+
 import React, { Component } from 'react';
-import { Icon } from 'mastodon/components/icon';
 import ChevronLeftIcon from '@/material-icons/400-24px/chevron_left.svg?react';
 import ChevronRightIcon from '@/material-icons/400-24px/chevron_right.svg?react';
+import { Icon } from 'mastodon/components/icon';
 
 class ButtonScrollList extends Component {
   static propTypes = {
@@ -45,21 +46,21 @@ class ButtonScrollList extends Component {
     const { children } = this.props;
 
     return (
-      <div className="button-scroll-list-container">
+      <div className='button-scroll-list-container'>
         <button
-          className="icon-button column-header__setting-btn"
+          className='icon-button column-header__setting-btn'
           onClick={this.scrollLeft}
         >
-          <Icon id="chevron-left" icon={ChevronLeftIcon} />
+          <Icon id='chevron-left' icon={ChevronLeftIcon} />
         </button>
-        <div className="button-scroll-list" ref={this.scrollRef}>
+        <div className='button-scroll-list' ref={this.scrollRef}>
           {children}
         </div>
         <button
-          className="icon-button column-header__setting-btn"
+          className='icon-button column-header__setting-btn'
           onClick={this.scrollRight}
         >
-          <Icon id="chevron-right" icon={ChevronRightIcon} />
+          <Icon id='chevron-right' icon={ChevronRightIcon} />
         </button>
       </div>
     );

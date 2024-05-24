@@ -12,12 +12,11 @@ import ChevronLeftIcon from '@/material-icons/400-24px/chevron_left.svg?react';
 import ChevronRightIcon from '@/material-icons/400-24px/chevron_right.svg?react';
 import CloseIcon from '@/material-icons/400-24px/close.svg?react';
 import SettingsIcon from '@/material-icons/400-24px/settings.svg?react';
+import FollowedTagsList from 'mastodon/components/followed_tags_list';
 import { Icon }  from 'mastodon/components/icon';
 import { ButtonInTabsBar } from 'mastodon/features/ui/util/columns_context';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
-
-import FollowedTagsList from 'mastodon/components/followed_tags_list';
 
 import { useAppHistory } from './router';
 
