@@ -202,9 +202,9 @@ class ColumnHeader extends PureComponent {
             </>
           )}
 
-          {icon==='home'? (
+          { icon === 'home' ? (
             <FollowedTagsList />
-            ) : null}
+          ) : null }
 
           {!hasTitle && backButton}
 

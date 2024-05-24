@@ -3568,6 +3568,15 @@ $ui-header-logo-wordmark-width: 99px;
   display: none;
 }
 
+.followed-tags-list {
+  overflow: hidden;
+  max-width: 75%;
+}
+
+.hashtag-wrapper {
+  border-bottom: none;
+}
+
 .column-back-button {
   box-sizing: border-box;
   width: 100%;

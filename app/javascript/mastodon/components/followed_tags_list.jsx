@@ -82,14 +82,15 @@ class FollowedTagsList extends PureComponent {
                  onLoadMore={this.handleLoadMore}
                >
                 {hashtags.map((hashtag) => (
-                  <Hashtag
-                  key={hashtag.get('name')}
-                  name={hashtag.get('name')}
-                  show-skeleton={false}
-                  to={`/tags/${hashtag.get('name')}`}
-                  withGraph={false}
-                  />
-                ))}
+        <div className="hashtag-wrapper" key={hashtag.get('name')}>
+          <Hashtag
+            name={hashtag.get('name')}
+            showSkeleton={false}
+            to={`/tags/${hashtag.get('name')}`}
+            withGraph={false}
+          />
+        </div>
+      ))}
         </ButtonScrollList>
       </div>
     );
