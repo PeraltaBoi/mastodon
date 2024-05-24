@@ -194,7 +194,7 @@ class ColumnHeader extends PureComponent {
             <>
               {backButton}
 
-              <button onClick={this.handleTitleClick} className='column-header__title'>
+              <button onClick={this.handleTitleClick} className='column-header__title' style={{ overflow: 'visible'}}>
                 {!backButton && <Icon id={icon} icon={iconComponent} className='column-header__icon' />}
                 {title}
               </button>
