@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
+
 import ChevronLeftIcon from '@/material-icons/400-24px/chevron_left.svg?react';
 import ChevronRightIcon from '@/material-icons/400-24px/chevron_right.svg?react';
 import { Icon } from 'mastodon/components/icon';

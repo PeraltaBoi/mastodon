@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
+
 import { FormattedMessage, injectIntl } from 'react-intl';
+
+import { withRouter } from 'react-router-dom';
+
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+
 import debounce from 'lodash/debounce';
 
 import { expandFollowedHashtags, fetchFollowedHashtags } from 'mastodon/actions/tags';
+import ButtonScrollList from 'mastodon/components/button_scroll_list';
+import { Hashtag } from 'mastodon/components/hashtag';
 import { withIdentity } from 'mastodon/identity_context';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
-import { Hashtag } from 'mastodon/components/hashtag';
-import ButtonScrollList from 'mastodon/components/button_scroll_list';
 
 const mapStateToProps = state => ({
   hashtags: state.getIn(['followed_tags', 'items']),
@@ -65,7 +69,7 @@ class FollowedTagsList extends PureComponent {
           onLoadMore={this.handleLoadMore}
         >
           {hashtags.map((hashtag) => (
-            <div className="hashtag-wrapper" key={hashtag.get('name')}>
+            <div className='hashtag-wrapper' key={hashtag.get('name')}>
               <Hashtag
                 name={hashtag.get('name')}
                 showSkeleton={false}

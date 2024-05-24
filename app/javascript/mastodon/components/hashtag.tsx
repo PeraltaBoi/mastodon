@@ -115,17 +115,15 @@ export const Hashtag: React.FC<HashtagProps> = ({
         )}
       </Link>
 
-      {
-
-show_skeleton ? (
-  description ? (
-    <span>{description}</span>
-  ) : typeof people !== 'undefined' ? (
-    <ShortNumber value={people} renderer={accountsCountRenderer} />
-  ) : (
-    <Skeleton width={100} />
-  )
-) : null}
+      {show_skeleton ? (
+        description ? (
+          <span>{description}</span>
+        ) : typeof people !== 'undefined' ? (
+          <ShortNumber value={people} renderer={accountsCountRenderer} />
+        ) : (
+          <Skeleton width={100} />
+        )
+      ) : null}
     </div>
 
     {typeof uses !== 'undefined' && (
