@@ -17,6 +17,7 @@ import { ButtonInTabsBar } from 'mastodon/features/ui/util/columns_context';
 import { identityContextPropShape, withIdentity } from 'mastodon/identity_context';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
+import FollowedTagsList from 'mastodon/components/followed_tags_list';
 
 import { useAppHistory } from './router';
 
@@ -200,6 +201,10 @@ class ColumnHeader extends PureComponent {
               </button>
             </>
           )}
+
+          {icon==='home'? (
+            <FollowedTagsList />
+            ) : null}
 
           {!hasTitle && backButton}
 

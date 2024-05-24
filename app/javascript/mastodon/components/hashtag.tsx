@@ -85,6 +85,7 @@ export interface HashtagProps {
   description?: React.ReactNode;
   history?: number[];
   name: string;
+  show_skeleton?: boolean;
   people: number;
   to: string;
   uses?: number;
@@ -93,6 +94,7 @@ export interface HashtagProps {
 
 export const Hashtag: React.FC<HashtagProps> = ({
   name,
+  show_skeleton,
   to,
   people,
   uses,
@@ -113,13 +115,17 @@ export const Hashtag: React.FC<HashtagProps> = ({
         )}
       </Link>
 
-      {description ? (
-        <span>{description}</span>
-      ) : typeof people !== 'undefined' ? (
-        <ShortNumber value={people} renderer={accountsCountRenderer} />
-      ) : (
-        <Skeleton width={100} />
-      )}
+      {
+
+show_skeleton ? (
+  description ? (
+    <span>{description}</span>
+  ) : typeof people !== 'undefined' ? (
+    <ShortNumber value={people} renderer={accountsCountRenderer} />
+  ) : (
+    <Skeleton width={100} />
+  )
+) : null}
     </div>
 
     {typeof uses !== 'undefined' && (

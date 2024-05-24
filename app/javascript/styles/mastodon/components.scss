@@ -3541,6 +3541,33 @@ $ui-header-logo-wordmark-width: 99px;
   }
 }
 
+.button-scroll-list-container {
+  display: flex;
+  align-items: center;
+  max-width: 100%; /* Ensures the container doesn't exceed the available width */
+  overflow: hidden; /* Hide any overflow */
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.button-scroll-list {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  flex-grow: 1; /* Ensures it takes the available space */
+  white-space: nowrap; /* Prevents line breaks in the items */
+}
+
+.button-scroll-list::-webkit-scrollbar { /* WebKit browsers */
+  display: none;
+}
+
 .column-back-button {
   box-sizing: border-box;
   width: 100%;
