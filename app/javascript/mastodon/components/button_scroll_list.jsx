@@ -36,9 +36,7 @@ class ButtonScrollList extends Component {
     if (this.childRefs.length > 0 && this.childRefs[0]) {
       const { offsetWidth } = this.childRefs[this.state.currentIndex];
       this.state.childWidth = offsetWidth;
-      console.log('%d', this.state.childWidth);
     }
-    console.log('index  %d', this.state.currentIndex);
   };
 
   scrollLeft = () => {
@@ -48,7 +46,6 @@ class ButtonScrollList extends Component {
       this.state.currentIndex = newIdx;
       this.updateChildWidth();
       this.slide -= this.state.childWidth;
-      console.log('slide %d', this.slide);
       this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
     }
   };
@@ -61,7 +58,6 @@ class ButtonScrollList extends Component {
       const newIdx = currentIndex + 1;
       this.setState({ currentIndex: newIdx });
       this.slide += this.state.childWidth;
-      console.log('slide %d', this.slide);
       this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
     }
   };
