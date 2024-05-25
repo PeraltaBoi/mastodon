@@ -39,14 +39,6 @@ class FollowedTagsList extends PureComponent {
     this.props.dispatch(expandFollowedHashtags());
   }, 300, { leading: true });
 
-  handleMoveLeft = () => {
-    // Implement the logic to move the column to the left
-  };
-
-  handleMoveRight = () => {
-    // Implement the logic to move the column to the right
-  };
-
   render() {
     const {
       hashtags,

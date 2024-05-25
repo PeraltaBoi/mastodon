@@ -15,31 +15,55 @@ class ButtonScrollList extends Component {
   constructor(props) {
     super(props);
     this.scrollRef = React.createRef();
+    this.childRefs = [];
+    this.state = {
+      currentIndex: 0,
+      childWidth: 0,
+    };
+    this.slide = 0;
   }
 
   componentDidMount() {
-    this.scrollRef.current.addEventListener('scroll', this.handleScroll);
+    this.updateChildWidth();
+    window.addEventListener('resize', this.updateChildWidth);
   }
 
   componentWillUnmount() {
-    this.scrollRef.current.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.updateChildWidth);
   }
 
-  handleScroll = () => {
-    const { onLoadMore } = this.props;
-    const { scrollLeft, scrollWidth, clientWidth } = this.scrollRef.current;
-
-    if (scrollLeft + clientWidth >= scrollWidth - 50) {
-      onLoadMore();
+  updateChildWidth = () => {
+    if (this.childRefs.length > 0 && this.childRefs[0]) {
+      const { offsetWidth } = this.childRefs[this.state.currentIndex];
+      this.state.childWidth = offsetWidth;
+      console.log('%d', this.state.childWidth);
     }
+    console.log('index  %d', this.state.currentIndex);
   };
 
   scrollLeft = () => {
-    this.scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    const { currentIndex } = this.state;
+    const newIdx = currentIndex - 1;
+    if (currentIndex > 0) {
+      this.state.currentIndex = newIdx;
+      this.updateChildWidth();
+      this.slide -= this.state.childWidth;
+      console.log('slide %d', this.slide);
+      this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
+    }
   };
 
   scrollRight = () => {
-    this.scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    this.updateChildWidth();
+    const { children } = this.props;
+    const { currentIndex } = this.state;
+    if (currentIndex < React.Children.count(children) - 1) {
+      const newIdx = currentIndex + 1;
+      this.setState({ currentIndex: newIdx });
+      this.slide += this.state.childWidth;
+      console.log('slide %d', this.slide);
+      this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
+    }
   };
 
   render() {
@@ -50,15 +74,21 @@ class ButtonScrollList extends Component {
         <button
           className='icon-button column-header__setting-btn'
           onClick={this.scrollLeft}
+          disabled={this.state.currentIndex === 0}
         >
           <Icon id='chevron-left' icon={ChevronLeftIcon} />
         </button>
         <div className='button-scroll-list' ref={this.scrollRef}>
-          {children}
+          {React.Children.map(children, (child, index) => (
+            <div key={index} ref={(ref) => { this.childRefs[index] = ref; }}>
+              {child}
+            </div>
+          ))}
         </div>
         <button
           className='icon-button column-header__setting-btn'
           onClick={this.scrollRight}
+          disabled={this.state.currentIndex === React.Children.count(children) - 1}
         >
           <Icon id='chevron-right' icon={ChevronRightIcon} />
         </button>
