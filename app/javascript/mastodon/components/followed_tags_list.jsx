@@ -3,8 +3,6 @@ import { PureComponent } from 'react';
 
 import { FormattedMessage, injectIntl } from 'react-intl';
 
-import { withRouter } from 'react-router-dom';
-
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 
@@ -74,4 +72,4 @@ class FollowedTagsList extends PureComponent {
   }
 }
 
-export default connect(mapStateToProps)(injectIntl(withRouter(FollowedTagsList)));
+export default connect(mapStateToProps)(injectIntl(FollowedTagsList));
