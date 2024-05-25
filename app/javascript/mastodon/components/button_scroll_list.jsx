@@ -42,26 +42,11 @@ class ButtonScrollList extends Component {
   };
 
   scrollLeft = () => {
-    const { currentIndex } = this.state;
-    const newIdx = currentIndex - 1;
-    if (currentIndex > 0) {
-      this.setState({ currentIndex: newIdx });
-      this.updateChildWidth();
-      this.slide -= this.state.childWidth;
-      this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
-    }
+    this.scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
   };
 
   scrollRight = () => {
-    this.updateChildWidth();
-    const { children } = this.props;
-    const { currentIndex } = this.state;
-    if (currentIndex < React.Children.count(children) - 1) {
-      const newIdx = currentIndex + 1;
-      this.setState({ currentIndex: newIdx });
-      this.slide += this.state.childWidth;
-      this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
-    }
+    this.scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
   };
 
   setChildRef(ref, index) {
@@ -82,7 +67,6 @@ class ButtonScrollList extends Component {
         <button
           className='icon-button column-header__setting-btn'
           onClick={this.scrollLeft}
-          disabled={this.state.currentIndex === 0}
         >
           <Icon id='chevron-left' icon={ChevronLeftIcon} />
         </button>
@@ -96,7 +80,6 @@ class ButtonScrollList extends Component {
         <button
           className='icon-button column-header__setting-btn'
           onClick={this.scrollRight}
-          disabled={this.state.currentIndex === React.Children.count(children) - 1}
         >
           <Icon id='chevron-right' icon={ChevronRightIcon} />
         </button>
