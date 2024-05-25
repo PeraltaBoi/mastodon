@@ -22,6 +22,7 @@ class ButtonScrollList extends Component {
     };
     this.slide = 0;
     this.setChildRef = this.setChildRef.bind(this);
+    this.handleSetChildRef = this.handleSetChildRef.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +68,12 @@ class ButtonScrollList extends Component {
     this.childRefs[index] = ref;
   }
 
+  handleSetChildRef(index) {
+    return (ref) => {
+      this.setChildRef(ref, index);
+    };
+  }
+
   render() {
     const { children } = this.props;
 
@@ -81,7 +88,7 @@ class ButtonScrollList extends Component {
         </button>
         <div className='button-scroll-list' ref={this.scrollRef}>
           {React.Children.map(children, (child, index) => (
-            <div key={index} ref={(ref) => this.setChildRef(ref, index)}>
+            <div key={index} ref={this.handleSetChildRef(index)}>
               {child}
             </div>
           ))}
