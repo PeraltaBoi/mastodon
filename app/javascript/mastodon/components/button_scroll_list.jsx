@@ -21,6 +21,7 @@ class ButtonScrollList extends Component {
       childWidth: 0,
     };
     this.slide = 0;
+    this.setChildRef = this.setChildRef.bind(this);
   }
 
   componentDidMount() {
@@ -33,9 +34,9 @@ class ButtonScrollList extends Component {
   }
 
   updateChildWidth = () => {
-    if (this.childRefs.length > 0 && this.childRefs[0]) {
+    if (this.childRefs.length > 0 && this.childRefs[this.state.currentIndex]) {
       const { offsetWidth } = this.childRefs[this.state.currentIndex];
-      this.state.childWidth = offsetWidth;
+      this.setState({ childWidth: offsetWidth });
     }
   };
 
@@ -43,7 +44,7 @@ class ButtonScrollList extends Component {
     const { currentIndex } = this.state;
     const newIdx = currentIndex - 1;
     if (currentIndex > 0) {
-      this.state.currentIndex = newIdx;
+      this.setState({ currentIndex: newIdx });
       this.updateChildWidth();
       this.slide -= this.state.childWidth;
       this.scrollRef.current.scrollTo({ left: this.slide, behavior: 'smooth' });
@@ -62,6 +63,10 @@ class ButtonScrollList extends Component {
     }
   };
 
+  setChildRef(ref, index) {
+    this.childRefs[index] = ref;
+  }
+
   render() {
     const { children } = this.props;
 
@@ -76,7 +81,7 @@ class ButtonScrollList extends Component {
         </button>
         <div className='button-scroll-list' ref={this.scrollRef}>
           {React.Children.map(children, (child, index) => (
-            <div key={index} ref={(ref) => { this.childRefs[index] = ref; }}>
+            <div key={index} ref={(ref) => this.setChildRef(ref, index)}>
               {child}
             </div>
           ))}
