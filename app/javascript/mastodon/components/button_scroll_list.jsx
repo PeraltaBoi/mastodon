@@ -16,30 +16,9 @@ class ButtonScrollList extends Component {
     super(props);
     this.scrollRef = React.createRef();
     this.childRefs = [];
-    this.state = {
-      currentIndex: 0,
-      childWidth: 0,
-    };
-    this.slide = 0;
     this.setChildRef = this.setChildRef.bind(this);
     this.handleSetChildRef = this.handleSetChildRef.bind(this);
   }
-
-  componentDidMount() {
-    this.updateChildWidth();
-    window.addEventListener('resize', this.updateChildWidth);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateChildWidth);
-  }
-
-  updateChildWidth = () => {
-    if (this.childRefs.length > 0 && this.childRefs[this.state.currentIndex]) {
-      const { offsetWidth } = this.childRefs[this.state.currentIndex];
-      this.setState({ childWidth: offsetWidth });
-    }
-  };
 
   scrollLeft = () => {
     this.scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
