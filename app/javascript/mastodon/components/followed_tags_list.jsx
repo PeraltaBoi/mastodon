@@ -13,6 +13,7 @@ import debounce from 'lodash/debounce';
 import { expandFollowedHashtags, fetchFollowedHashtags } from 'mastodon/actions/tags';
 import ButtonScrollList from 'mastodon/components/button_scroll_list';
 import { Hashtag } from 'mastodon/components/hashtag';
+import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
 const mapStateToProps = state => ({
   hashtags: state.getIn(['followed_tags', 'items']),
@@ -25,6 +26,7 @@ class FollowedTagsList extends PureComponent {
     hashtags: ImmutablePropTypes.list.isRequired,
     isLoading: PropTypes.bool.isRequired,
     hasMore: PropTypes.bool.isRequired,
+    ...WithRouterPropTypes,
   };
 
   componentDidMount() {
@@ -36,9 +38,17 @@ class FollowedTagsList extends PureComponent {
   }, 300, { leading: true });
 
   render() {
-    const { hashtags, isLoading } = this.props;
+    const {
+      hashtags,
+      isLoading,
+    } = this.props;
 
-    const emptyMessage = <FormattedMessage id='empty_column.followed_tags' defaultMessage='You have not followed any hashtags yet. When you do, they will show up here.' />;
+    const emptyMessage = (
+      <FormattedMessage
+        id='empty_column.followed_tags'
+        defaultMessage='You have not followed any hashtags yet. When you do, they will show up here.'
+      />
+    );
 
     return (
       <div className='followed-tags-list' >
@@ -64,4 +74,4 @@ class FollowedTagsList extends PureComponent {
   }
 }
 
-export default connect(mapStateToProps)(injectIntl(FollowedTagsList));
+export default connect(mapStateToProps)(injectIntl(withRouter(FollowedTagsList)));
