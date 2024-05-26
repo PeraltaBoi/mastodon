@@ -104,14 +104,12 @@ describe('<ButtonScrollList />', () => {
     ));
     render(<ButtonScrollList>{children}</ButtonScrollList>);
 
-    // Find the buttons by their unique accessible names
     const leftButton = screen.getByRole('button', { name: /scroll left/i });
     const rightButton = screen.getByRole('button', { name: /scroll right/i });
 
     expect(leftButton).toBeTruthy();
     expect(rightButton).toBeTruthy();
 
-    // Optionally, test for keyboard accessibility
     leftButton.focus();
     expect(document.activeElement).toBe(leftButton);
 
