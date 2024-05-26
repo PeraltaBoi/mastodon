@@ -1,0 +1,203 @@
+import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import { BrowserRouter as Router } from 'react-router-dom';
+
+//import { configureStore, thunk } from '@reduxjs/toolkit';
+import { configureStore, thunk } from '@reduxjs/toolkit';
+import Immutable from 'immutable';
+import renderer from 'react-test-renderer';
+
+import { render, screen, fireEvent } from '@testing-library/react';
+
+import renderer from 'react-test-renderer';
+
+import {
+  fetchFollowedHashtags,
+  expandFollowedHashtags,
+} from 'mastodon/actions/tags';
+
+import FollowedTagsList from '../followed_tags_list';
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
+
+const initialState = {
+  followed_tags: Immutable.fromJS({
+    items: [],
+    isLoading: true,
+    next: null,
+  }),
+};
+
+const renderComponent = (store) =>
+  render(
+    <Provider store={store}>
+      <IntlProvider locale='en'>
+        <Router>
+          <FollowedTagsList />
+        </Router>
+      </IntlProvider>
+    </Provider>,
+  );
+
+describe('<FollowedTagsList />', () => {
+  it('renders the empty message when there are no hashtags', () => {
+    const component = renderer.create(<FollowedTagsList />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  {
+    /* it('renders a button element', () => {
+    const component = renderer.create(<Button />);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders the given text', () => {
+    const text = 'foo';
+    const component = renderer.create(<Button text={text} />);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('handles click events using the given handler', () => {
+    const handler = jest.fn();
+    render(<Button onClick={handler}>button</Button>);
+    fireEvent.click(screen.getByText('button'));
+
+    expect(handler.mock.calls.length).toEqual(1);
+  });
+
+  it('does not handle click events if props.disabled given', () => {
+    const handler = jest.fn();
+    render(
+      <Button onClick={handler} disabled>
+        button
+      </Button>,
+    );
+    fireEvent.click(screen.getByText('button'));
+
+    expect(handler.mock.calls.length).toEqual(0);
+  });
+
+  it('renders a disabled attribute if props.disabled given', () => {
+    const component = renderer.create(<Button disabled />);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders the children', () => {
+    const children = <p>children</p>;
+    const component = renderer.create(<Button>{children}</Button>);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders the props.text instead of children', () => {
+    const text = 'foo';
+    const children = <p>children</p>;
+    const component = renderer.create(<Button text={text}>{children}</Button>);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders class="button--block" if props.block given', () => {
+    const component = renderer.create(<Button block />);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('adds class "button-secondary" if props.secondary given', () => {
+    const component = renderer.create(<Button secondary />);
+    const tree = component.toJSON();
+
+    expect(tree).toMatchSnapshot();
+  }); */
+  }
+});
+
+/* describe('<FollowedTagsList />', () => {
+  it('renders the empty message when there are no hashtags', () => {
+    const store = mockStore(initialState);
+    const component = renderer.create(
+      <Provider store={store}>
+        <IntlProvider locale='en'>
+          <Router>
+            <FollowedTagsList />
+          </Router>
+        </IntlProvider>
+      </Provider>,
+    );
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders a list of hashtags', () => {
+    const hashtags = Immutable.fromJS([
+      { name: 'hashtag1' },
+      { name: 'hashtag2' },
+    ]);
+    const store = mockStore({
+      ...initialState,
+      followed_tags: initialState.followed_tags
+        .set('items', hashtags)
+        .set('isLoading', false),
+    });
+
+    renderComponent(store);
+
+    expect(screen.getByText('#hashtag1')).toBeInTheDocument();
+    expect(screen.getByText('#hashtag2')).toBeInTheDocument();
+  });
+
+  it('calls fetchFollowedHashtags on mount', () => {
+    const store = mockStore(initialState);
+    renderComponent(store);
+
+    const actions = store.getActions();
+    expect(actions).toContainEqual(fetchFollowedHashtags());
+  });
+
+  it('calls expandFollowedHashtags on load more', () => {
+    const hashtags = Immutable.fromJS([
+      { name: 'hashtag1' },
+      { name: 'hashtag2' },
+    ]);
+    const store = mockStore({
+      ...initialState,
+      followed_tags: initialState.followed_tags
+        .set('items', hashtags)
+        .set('isLoading', false)
+        .set('next', true),
+    });
+
+    renderComponent(store);
+
+    fireEvent.scroll(window, { target: { scrollY: 100 } });
+    jest.runAllTimers(); // Run debounce
+
+    const actions = store.getActions();
+    expect(actions).toContainEqual(expandFollowedHashtags());
+  });
+
+  it('renders loading state when isLoading is true', () => {
+    const store = mockStore({
+      ...initialState,
+      followed_tags: initialState.followed_tags.set('isLoading', true),
+    });
+
+    renderComponent(store);
+
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+});
+ */
