@@ -51,10 +51,8 @@ class FollowedTagsList extends PureComponent {
     return (
       <div className='followed-tags-list' >
         <ButtonScrollList
-          scrollKey='followed_tags'
           emptyMessage={emptyMessage}
           isLoading={isLoading}
-          onLoadMore={this.handleLoadMore}
         >
           {hashtags.map((hashtag) => (
             <div className='hashtag-wrapper' key={hashtag.get('name')}>

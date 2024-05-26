@@ -7,8 +7,6 @@ import { Icon } from 'mastodon/components/icon';
 
 class ButtonScrollList extends Component {
   static propTypes = {
-    scrollKey: PropTypes.string.isRequired,
-    onLoadMore: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
   };
 
@@ -16,8 +14,7 @@ class ButtonScrollList extends Component {
     super(props);
     this.scrollRef = React.createRef();
     this.childRefs = [];
-    this.setChildRef = this.setChildRef.bind(this);
-    this.handleSetChildRef = this.handleSetChildRef.bind(this);
+    this.slide = 0;
   }
 
   scrollLeft = () => {
@@ -27,16 +24,6 @@ class ButtonScrollList extends Component {
   scrollRight = () => {
     this.scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
   };
-
-  setChildRef(ref, index) {
-    this.childRefs[index] = ref;
-  }
-
-  handleSetChildRef(index) {
-    return (ref) => {
-      this.setChildRef(ref, index);
-    };
-  }
 
   render() {
     const { children } = this.props;
@@ -51,9 +38,7 @@ class ButtonScrollList extends Component {
         </button>
         <div className='button-scroll-list' ref={this.scrollRef}>
           {React.Children.map(children, (child, index) => (
-            <div key={index} ref={this.handleSetChildRef(index)}>
-              {child}
-            </div>
+            <div key={index}>{child}</div>
           ))}
         </div>
         <button
