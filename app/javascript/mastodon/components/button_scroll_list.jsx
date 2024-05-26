@@ -13,20 +13,46 @@ class ButtonScrollList extends Component {
   constructor(props) {
     super(props);
     this.scrollRef = React.createRef();
-    this.childRefs = [];
     this.slide = 0;
+    this.childrenLength = React.Children.count(props.children);
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      if (this.scrollRef && this.scrollRef.current) {
+        const container = this.scrollRef.current;
+        container.scrollTo({ left: 0, behavior: 'auto' });
+        this.slide = 0;
+      }
+    }, 500);
   }
 
   scrollLeft = () => {
-    this.scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    if (this.scrollRef && this.scrollRef.current) {
+      this.scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+      this.slide = Math.max(0, this.slide - 1);
+    }
   };
 
   scrollRight = () => {
-    this.scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    if (this.scrollRef && this.scrollRef.current) {
+      const { children } = this.props;
+      const container = this.scrollRef.current;
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+      if (container.scrollLeft < maxScrollLeft) {
+        container.scrollBy({ left: 200, behavior: 'smooth' });
+        this.slide = Math.min(
+          React.Children.count(children) - 1,
+          this.slide + 1,
+        );
+      } else {
+      }
+    }
   };
 
   render() {
-    const { children, emptyMessage } = this.props;
+    const { children } = this.props;
 
     if (React.Children.count(children) === 0) {
       return null;
@@ -36,6 +62,7 @@ class ButtonScrollList extends Component {
       <div className='button-scroll-list-container'>
         <button
           className='icon-button column-header__setting-btn'
+          aria-label='Scroll left'
           onClick={this.scrollLeft}
         >
           <Icon id='chevron-left' icon={ChevronLeftIcon} />
@@ -47,6 +74,7 @@ class ButtonScrollList extends Component {
         </div>
         <button
           className='icon-button column-header__setting-btn'
+          aria-label='Scroll right'
           onClick={this.scrollRight}
         >
           <Icon id='chevron-right' icon={ChevronRightIcon} />
