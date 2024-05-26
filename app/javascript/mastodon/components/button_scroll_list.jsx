@@ -8,7 +8,6 @@ import { Icon } from 'mastodon/components/icon';
 class ButtonScrollList extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    emptyMessage: PropTypes.node,
   };
 
   constructor(props) {
@@ -30,7 +29,7 @@ class ButtonScrollList extends Component {
     const { children, emptyMessage } = this.props;
 
     if (React.Children.count(children) === 0) {
-      return null; // Render nothing if children are empty
+      return null;
     }
 
     return (

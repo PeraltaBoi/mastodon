@@ -8,12 +8,15 @@ import { connect } from 'react-redux';
 
 import debounce from 'lodash/debounce';
 
-import { expandFollowedHashtags, fetchFollowedHashtags } from 'mastodon/actions/tags';
+import {
+  expandFollowedHashtags,
+  fetchFollowedHashtags,
+} from 'mastodon/actions/tags';
 import ButtonScrollList from 'mastodon/components/button_scroll_list';
 import { Hashtag } from 'mastodon/components/hashtag';
 import { WithRouterPropTypes } from 'mastodon/utils/react_router';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   hashtags: state.getIn(['followed_tags', 'items']),
   isLoading: state.getIn(['followed_tags', 'isLoading'], true),
   hasMore: !!state.getIn(['followed_tags', 'next']),
@@ -31,15 +34,16 @@ class FollowedTagsList extends PureComponent {
     this.props.dispatch(fetchFollowedHashtags());
   }
 
-  handleLoadMore = debounce(() => {
-    this.props.dispatch(expandFollowedHashtags());
-  }, 300, { leading: true });
+  handleLoadMore = debounce(
+    () => {
+      this.props.dispatch(expandFollowedHashtags());
+    },
+    300,
+    { leading: true },
+  );
 
   render() {
-    const {
-      hashtags,
-      isLoading,
-    } = this.props;
+    const { hashtags, isLoading } = this.props;
 
     const emptyMessage = (
       <FormattedMessage
@@ -49,11 +53,8 @@ class FollowedTagsList extends PureComponent {
     );
 
     return (
-      <div className='followed-tags-list' >
-        <ButtonScrollList
-          emptyMessage={emptyMessage}
-          isLoading={isLoading}
-        >
+      <div className='followed-tags-list'>
+        <ButtonScrollList>
           {hashtags.map((hashtag) => (
             <div className='hashtag-wrapper' key={hashtag.get('name')}>
               <Hashtag
