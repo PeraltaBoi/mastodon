@@ -43,14 +43,7 @@ class FollowedTagsList extends PureComponent {
   );
 
   render() {
-    const { hashtags, isLoading } = this.props;
-
-    const emptyMessage = (
-      <FormattedMessage
-        id='empty_column.followed_tags'
-        defaultMessage='You have not followed any hashtags yet. When you do, they will show up here.'
-      />
-    );
+    const { hashtags } = this.props;
 
     return (
       <div className='followed-tags-list'>
